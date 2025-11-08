@@ -16,10 +16,10 @@ x-common-service: &common-service
     - "host.docker.internal:host-gateway"
 
 x-common-env: &common-env
-  REDIS_URL: ${REDIS_URL:-redis://redis:16379}
-  REDIS_RATE_LIMIT_URL: ${REDIS_URL:-redis://redis:16379}
+  REDIS_URL: ${REDIS_URL:-redis://redis:26379}
+  REDIS_RATE_LIMIT_URL: ${REDIS_URL:-redis://redis:26379}
   PLAYWRIGHT_MICROSERVICE_URL: ${PLAYWRIGHT_MICROSERVICE_URL:-http://playwright-service:3000/scrape}
-  NUQ_DATABASE_URL: postgres://postgres:postgres@nuq-postgres:15432/postgres
+  NUQ_DATABASE_URL: postgres://postgres:postgres@nuq-postgres:25432/postgres
   USE_DB_AUTHENTICATION: ${USE_DB_AUTHENTICATION}
   OPENAI_API_KEY: ${OPENAI_API_KEY}
   OPENAI_BASE_URL: ${OPENAI_BASE_URL}
@@ -83,7 +83,7 @@ services:
     image: redis:alpine
     # image: valkey/valkey:alpine
     ports:
-      - "16379:6379"
+      - "26379:6379"
     networks:
       - backend
     command: redis-server --bind 0.0.0.0
@@ -97,7 +97,7 @@ services:
     networks:
       - backend
     ports:
-      - "15432:5432"
+      - "25432:5432"
 
 networks:
   backend:
