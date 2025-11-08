@@ -439,7 +439,7 @@ async function startNuqPostgresContainer(
   logger.info(`Starting PostgreSQL container: ${containerName}`);
   const start = execForward(
     `${runtime}@start`,
-    `${runtime} run -d --name ${containerName} -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres firecrawl-nuq-postgres:latest`,
+    `${runtime} run -d --name ${containerName} -p 54322:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres firecrawl-nuq-postgres:latest`,
   );
   await start.promise;
   logger.success(`PostgreSQL container started: ${containerName}`);
@@ -510,10 +510,10 @@ async function setupNuqPostgres(): Promise<Services["nuqPostgres"]> {
   await startNuqPostgresContainer(runtime, containerName);
 
   // Wait for PostgreSQL to be ready
-  await waitForPostgres("localhost", 5432);
+  await waitForPostgres("localhost", 54322);
 
   // Set environment variables for the services
-  const dbUrl = "postgresql://postgres:postgres@localhost:5432/postgres";
+  const dbUrl = "postgresql://postgres:postgres@localhost:54322/postgres";
   process.env.NUQ_DATABASE_URL = dbUrl;
   process.env.NUQ_DATABASE_URL_LISTEN = dbUrl;
 
